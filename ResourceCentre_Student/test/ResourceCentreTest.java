@@ -146,6 +146,22 @@ public class ResourceCentreTest {
 	public void doLoanChromebookTest() {
 		//fail("Not yet implemented");
 		// write your code here
+		assertNotNull("Test if there is valid Chromebook arraylist to loan from", chromebookList);
+		ResourceCentre.addChromebook(chromebookList, cb1);
+		//normal
+		Boolean pass = ResourceCentre.doLoanChromebook(chromebookList, "CB0011", "8-8-2020");
+		assertTrue("Test if an same item is NOT ok to loan again?",pass);
+		//error condition
+		pass = ResourceCentre.doLoanChromebook(chromebookList, "CB0011", "8-8-2020");
+		assertFalse("Test if an same item is NOT ok to loan again?",pass);
+		
+		ResourceCentre.addChromebook(chromebookList, cb2);
+		cb2.setIsAvailable(false);
+		pass = ResourceCentre.doLoanChromebook(chromebookList, "CB0012", "8-8-2020");
+		assertFalse("Test if an same item is NOT ok to loan again?",pass);
+		
+		pass = ResourceCentre.doLoanChromebook(chromebookList, "CB0013", "8-8-2020");
+		assertFalse("Test if an same item is NOT ok to loan again?",pass);
 	}
 	
 	@Test
