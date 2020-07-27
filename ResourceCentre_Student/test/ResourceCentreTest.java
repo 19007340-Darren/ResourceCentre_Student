@@ -99,7 +99,7 @@ public class ResourceCentreTest {
 		// write your code here
 		// Test if Item list is not null but empty, so that can add a new item
 		assertNotNull("Test if there is valid Chromebook arraylist to add to", chromebookList);
-				
+		
 		//test if the list of Chromebook retrieved from the SourceCentre is empty
 		String allChromebook= ResourceCentre.retrieveAllChromebook(chromebookList);
 		String testOutput = "";
@@ -124,7 +124,22 @@ public class ResourceCentreTest {
 	public void doLoanCamcorderTest() {
 		//fail("Not yet implemented");
 		// write your code here
+		assertNotNull("Test if there is valid Camcorder arraylist to loan from", camcorderList);
+		ResourceCentre.addCamcorder(camcorderList, cc1);
+		//normal
+		Boolean pass = ResourceCentre.doLoanCamcorder(camcorderList, "CC0011", "8-8-2020");
+		assertTrue("Test if an same item is NOT ok to loan again?",pass);
+		//error condition
+		pass = ResourceCentre.doLoanCamcorder(camcorderList, "CC0011", "8-8-2020");
+		assertFalse("Test if an same item is NOT ok to loan again?",pass);
 		
+		ResourceCentre.addCamcorder(camcorderList, cc2);
+		cc2.setIsAvailable(false);
+		pass = ResourceCentre.doLoanCamcorder(camcorderList, "CC0012", "8-8-2020");
+		assertFalse("Test if an same item is NOT ok to loan again?",pass);
+		
+		pass = ResourceCentre.doLoanCamcorder(camcorderList, "CC0013", "8-8-2020");
+		assertFalse("Test if an same item is NOT ok to loan again?",pass);
 	}
 	
 	@Test
